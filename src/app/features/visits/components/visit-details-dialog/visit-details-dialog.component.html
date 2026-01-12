@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Visit details</h2>
+
+<mat-dialog-content>
+    <dl class="dl">
+        <dt>Date</dt>
+        <dd>{{visit.dateIso | date:'fullDate'}}</dd>
+
+        <dt>Dortor</dt>
+        <dd>{{visit.doctorName}}</dd>
+
+        <dt>Department</dt>
+        <dd>{{visit.department}}</dd>
+
+        <dt>Reason</dt>
+        <dd>{{visit.reason}}</dd>
+
+        <dt>Notes</dt>
+        <dd class="notes">{{visit.doctorName || '-'}}</dd>
+    </dl>
+</mat-dialog-content>
+
+<mat-dialog-actions >
+    <button mat-button mat-dialog-close type="button">Close</button>
+</mat-dialog-actins>
