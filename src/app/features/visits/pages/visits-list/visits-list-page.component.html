@@ -1,0 +1,33 @@
+<section aria-labelledby="visitsTitle">
+  <h1 id="visitsTitle">Visits</h1>
+
+  <form role="search" (submit)="$event.preventDefault()" class="search">
+    <mat-form-field appearance="outline">
+      <mat-label>Search visits</mat-label>
+      <input matInput [formControl]="query" autocomplete="off">
+      <mat-hint>Search by doctor, department, or reason</mat-hint>
+    </mat-form-field>
+  </form>
+
+  <ng-container *ngIf="filtered$ | async as visits">
+    <p aria-live="polite">{{ visits.length }} results</p>
+
+    <ul class="list" *ngIf="visits.length; else empty">
+      <li *ngFor="let v of visits">
+        <article class="card">
+          <h2 class="title">{{ v.department }} • {{ v.doctorName }}</h2>
+          <p><strong>Date:</strong> {{ v.dateIso | date:'medium' }}</p>
+          <p><strong>Reason:</strong> {{ v.reason }}</p>
+
+          <button mat-raised-button type="button" (click)="openDetails(v)">
+            View details
+          </button>
+        </article>
+      </li>
+    </ul>
+
+    <ng-template #empty>
+      <p>No visits yet. Create one to get started.</p>
+    </ng-template>
+  </ng-container>
+</section>

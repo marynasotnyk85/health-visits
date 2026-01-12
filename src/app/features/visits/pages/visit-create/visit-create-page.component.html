@@ -1,0 +1,72 @@
+<section aria-labelledby="createTitle">
+  <h1 id="createTitle">Create visit</h1>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="save()"
+    appFocusInvalidOnSubmit
+    [a11yInvalidMessage]="'Please fix the errors in the form.'"
+    novalidate
+    class="form"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        formControlName="date"
+        type="date"
+        required
+        [attr.aria-invalid]="form.controls.date.invalid && (form.controls.date.touched || form.controls.date.dirty)"
+      />
+      <mat-error *ngIf="form.controls.date.hasError('required')">
+        Date is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Doctor name</mat-label>
+      <input matInput formControlName="doctorName" autocomplete="name" required />
+      <mat-error *ngIf="form.controls.doctorName.hasError('required')">Doctor name is required</mat-error>
+      <mat-error *ngIf="form.controls.doctorName.hasError('minlength')">Minimum 2 characters</mat-error>
+      <mat-error *ngIf="form.controls.doctorName.hasError('maxlength')">Too long</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select formControlName="department" required>
+        <mat-option *ngFor="let d of departments" [value]="d">{{ d }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.department.hasError('required')">Department is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Reason</mat-label>
+      <input matInput formControlName="reason" required />
+      <mat-hint>Short description (e.g., follow-up visit)</mat-hint>
+      <mat-error *ngIf="form.controls.reason.hasError('required')">Reason is required</mat-error>
+      <mat-error *ngIf="form.controls.reason.hasError('minlength')">Minimum 4 characters</mat-error>
+      <mat-error *ngIf="form.controls.reason.hasError('maxlength')">Too long</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Notes (plain text)</mat-label>
+      <textarea
+        matInput
+        formControlName="notes"
+        rows="5"
+        aria-describedby="notesHelp"
+      ></textarea>
+      <mat-hint id="notesHelp">
+        Notes are stored as plain text (XSS-safe). Avoid pasting HTML.
+      </mat-hint>
+      <mat-error *ngIf="form.controls.notes.hasError('maxlength')">
+        Notes too long (max 1000 chars)
+      </mat-error>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-stroked-button type="button" routerLink="/visits">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </form>
+</section>
