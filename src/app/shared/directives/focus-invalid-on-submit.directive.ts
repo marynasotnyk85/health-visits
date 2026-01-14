@@ -42,8 +42,6 @@ export class FocusInvalidOnSubmitDirective {
 
         const firstInvalid = root.querySelector(selector) as HTMLElement | null;
         firstInvalid?.focus();
-
-        firstInvalid?.focus();
       });
     }
   }
